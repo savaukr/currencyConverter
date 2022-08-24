@@ -10,27 +10,26 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import styles from "./currency.module.css";
 
 function Currency() {
-  console.log(styles);
-  const [age, setAge] = useState<string>("");
+  const [currency, setCurrency] = useState<string>("");
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setCurrency(event.target.value as string);
   };
 
   return (
-    <div className={"currencyWrapper"}>
-      <span className={"redColor"}>hello</span>
+    <div className={styles.currencyWrapper}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">Currency</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
+          value={currency}
+          label="Currency"
           onChange={handleChange}
+          // variant={"filled"}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={10}>USD</MenuItem>
+          <MenuItem value={20}>EUR</MenuItem>
+          <MenuItem value={30}> UAH</MenuItem>
         </Select>
       </FormControl>
     </div>

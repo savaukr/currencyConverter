@@ -1,11 +1,10 @@
-import "./App.css";
+import styles from "./App.module.css";
 
 import Currency from "./components/currency/currency.tsx";
 
 function App() {
   return (
-    <div className="App">
-      hello
+    <div className={styles.App}>
       <Currency />
     </div>
   );
