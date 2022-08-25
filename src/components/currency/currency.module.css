@@ -1,3 +1,14 @@
 .currencyWrapper {
-  max-width: 300px;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.currency {
+  width: 100%;
+  margin: 20px 0;
+}
+.amount {
+  width: 100%;
 }

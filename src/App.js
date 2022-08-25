@@ -1,11 +1,11 @@
 import styles from "./App.module.css";
 
-import Currency from "./components/currency/currency.tsx";
+import Converter from "./components/converter/converter.tsx";
 
 function App() {
   return (
     <div className={styles.App}>
-      <Currency />
+      <Converter />
     </div>
   );
 }

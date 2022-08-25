@@ -1,0 +1,19 @@
+.converterWrapper {
+  height: 100vh;
+  padding: 50px 0;
+  background-color: rgb(234, 236, 228);
+}
+.currencies {
+  margin: 0 auto;
+  padding: 20px;
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 550px) {
+  .currencies {
+    flex-direction: column;
+    width: 250px;
+  }
+}
