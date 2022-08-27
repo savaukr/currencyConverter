@@ -4,10 +4,15 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  margin-top: 25px;
 }
 .currency {
   width: 100%;
   margin: 20px 0;
+}
+.ownCurrency {
+  width: 100%;
+  margin-bottom: 20px;
 }
 .amount {
   width: 100%;

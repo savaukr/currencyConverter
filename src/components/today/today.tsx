@@ -10,12 +10,12 @@ function Today({ className }: Props) {
   );
   useEffect(() => {
     const timerId = setInterval(
-      () => setDateNow(dayjs(new Date()).format("DD.MM.YYYY  h:mm")),
+      () => setDateNow(dayjs(new Date()).format("DD.MM.YYYY  h:mm:ss")),
       1000
     );
     return () => clearInterval(timerId);
   }, []);
-  return <div className={className}>Date: {dateNow}</div>;
+  return <div className={className}>{dateNow}</div>;
 }
 
 export default Today;

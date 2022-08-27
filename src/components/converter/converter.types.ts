@@ -4,10 +4,12 @@ export type ExchRate = {
 };
 
 export type FetchExchRate = {
-  Amount: number;
-  CurrencyCode: string;
-  CurrencyCodeL: string;
-  StartDate: string;
-  TimeSign: string;
-  Units: number;
+  base_ccy: string;
+  buy: string;
+  ccy: string;
+  sale: string;
+};
+
+export type NormExchRate = {
+  [ccs: string]: FetchExchRate;
 };

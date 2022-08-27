@@ -5,11 +5,10 @@ export const getExchRate = async (
 ) => {
   try {
     let response = await fetch(
-      "https://bank.gov.ua/NBU_Exchange/exchange?json"
+      "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
     );
     const json = await response.json();
-    const result = JSON.parse(json);
-    setExchRate([result[0], result[2]]);
+    setExchRate([json[0], json[1]]);
   } catch (err) {
     err.message = "Can not get exchange rate, try latter";
     throw err;
