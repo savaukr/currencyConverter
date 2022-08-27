@@ -48,7 +48,7 @@ function Currency({ currency, setCurrency }: Props) {
       <div className={styles.amount}>
         <TextField
           id="outlined-number"
-          label="Number"
+          label="Amount"
           type="number"
           InputLabelProps={{
             shrink: true,

@@ -1,7 +1,17 @@
 .converterWrapper {
   height: 100vh;
-  padding: 50px 0;
   background-color: rgb(234, 236, 228);
+  overflow: hidden;
+}
+.header {
+  background-color: rgb(69, 88, 88);
+  width: 100vw;
+  color: white;
+  padding: 10px 0;
+}
+.date {
+  padding: 10px 30px;
+  text-align: right;
 }
 .currencies {
   margin: 0 auto;
