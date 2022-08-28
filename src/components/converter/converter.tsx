@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -25,6 +25,7 @@ function Converter() {
   const [exchRate, setExchRate] = useState<FetchExchRate[] | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [isBuy, setIsBuy] = useState<boolean>(true);
+  const [timeFetchRate, setTimeFetchRate] = useState<boolean>(true);
 
   useEffect(() => {
     try {
@@ -32,8 +33,10 @@ function Converter() {
       getData();
     } catch (err) {
       setErr(err.message);
+    } finally {
+      setTimeFetchRate(false);
     }
-  }, []);
+  }, [timeFetchRate]);
 
   const normExchRate = useMemo(
     () =>
@@ -43,15 +46,27 @@ function Converter() {
       }, {}),
     [exchRate]
   );
-  // console.log("first", firstCur);
-  // console.log("second", secondCur);
+
   return (
     <div className={styles.converterWrapper}>
       <header className={styles.header}>
         <h1>Currency converter</h1>
+        <Button
+          color={"secondary"}
+          variant="outlined"
+          className={styles.btnGetRate}
+          onClick={() => {
+            setTimeFetchRate(true);
+          }}
+        >
+          update rate
+        </Button>
         <div className={styles.infoContainer}>
           <div className={styles.rateInfo}>
-            <Today className={styles.date} />
+            <Today
+              className={styles.date}
+              setTimeFetchRate={setTimeFetchRate}
+            />
             {exchRate ? <ExchangeRate rates={exchRate} /> : null}
           </div>
         </div>
@@ -63,6 +78,8 @@ function Converter() {
             variant="outlined"
             className={classnames(styles.btn, { [styles.activeBtn]: isBuy })}
             onClick={() => {
+              setFirsAmount(0);
+              setSecondAmount(0);
               setIsBuy(true);
             }}
           >
@@ -72,7 +89,11 @@ function Converter() {
             color={"secondary"}
             variant="outlined"
             className={classnames(styles.btn, { [styles.activeBtn]: !isBuy })}
-            onClick={() => setIsBuy(false)}
+            onClick={() => {
+              setFirsAmount(0);
+              setSecondAmount(0);
+              setIsBuy(false);
+            }}
           >
             Sale
           </Button>
@@ -85,8 +106,6 @@ function Converter() {
           ownAmount={firstAmount}
           setOwnAmount={setFirsAmount}
           extCurrency={secondCur}
-          // setExtCurrency={setSecondCur}
-          // extAmount={secondAmount}
           setExtAmount={setSecondAmount}
           normExchRate={normExchRate}
           isBuy={isBuy}
@@ -97,8 +116,6 @@ function Converter() {
           ownAmount={secondAmount}
           setOwnAmount={setSecondAmount}
           extCurrency={firstCur}
-          // setExtCurrency={setFirstCur}
-          // extAmount={firstAmount}
           setExtAmount={setFirsAmount}
           normExchRate={normExchRate}
           isBuy={isBuy}

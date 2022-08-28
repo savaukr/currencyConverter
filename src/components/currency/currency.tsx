@@ -19,8 +19,6 @@ type Props = {
   ownAmount: number;
   setOwnAmount: (amount: number) => void;
   extCurrency: string;
-  // setExtCurrency: (cur: string) => void;
-  // extAmount: number;
   setExtAmount: (amount: number) => void;
   normExchRate: NormExchRate;
   isBuy: boolean;
@@ -32,8 +30,6 @@ function Currency({
   ownAmount,
   setOwnAmount,
   extCurrency,
-  // setExtCurrency,
-  // extAmount,
   setExtAmount,
   normExchRate,
   isBuy,
@@ -47,34 +43,28 @@ function Currency({
     ) => {
       if (!normExchRate) return;
 
-      console.log("ownCurrency", ownCurrency);
-      console.log("extCurrency", extCurrency);
-
       if (ownCurrency === extCurrency) {
         return setExtAmount(Number(ownAmount));
       }
-      let koef = 1;
       const rate =
         ownCurrency === UAH
           ? normExchRate[extCurrency]
           : normExchRate[ownCurrency];
+
+      let koef = 1;
       if (ownCurrency !== UAH && extCurrency !== UAH) {
-        koef = Number(rate?.buy) / Number(rate?.sale);
+        koef = isBuy
+          ? Number(rate?.buy) / Number(normExchRate?.[extCurrency].sale)
+          : Number(normExchRate?.[extCurrency].buy) / Number(rate?.sale);
+      }
+      if (ownCurrency !== UAH && extCurrency === UAH) {
+        koef = isBuy ? Number(rate?.buy) : Number(rate?.sale);
+      }
+      if (ownCurrency === UAH && extCurrency !== UAH) {
+        koef = isBuy ? 1 / Number(rate?.buy) : 1 / Number(rate?.sale);
       }
 
-      console.log("rate:", rate);
-
-      if (isBuy) {
-        if (ownCurrency === UAH)
-          setExtAmount((ownAmount / Number(rate?.buy)) * koef);
-        else setExtAmount(ownAmount * Number(rate?.buy) * koef);
-      } else {
-        if (ownCurrency === UAH)
-          setExtAmount((ownAmount / Number(rate?.sale)) * koef);
-        else setExtAmount(ownAmount * Number(rate?.sale) * koef);
-      }
-
-      // setExtAmount(10 + Number(ownAmount));
+      setExtAmount(ownAmount * koef);
     },
     [ownCurrency, ownAmount, normExchRate, extCurrency, isBuy, setExtAmount]
   );
